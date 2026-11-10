@@ -1,0 +1,681 @@
+{
+  "address": "0x69277e2e44b2c03a6934be47f7cf6b2eab204f76",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_cornDEX",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_corn",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__BorrowingFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__InsufficientLiquidatorCorn",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__InvalidAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__NotLiquidatable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__PositionSafe",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__RepayingFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__TransferFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Lending__UnsafePositionRatio",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "AssetBorrowed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "AssetRepaid",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "CollateralAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "CollateralWithdrawn",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "liquidator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amountForLiquidator",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "liquidatedUserDebt",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "Liquidation",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "addCollateral",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "borrowAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "borrowCorn",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "calculateCollateralValue",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IFlashLoanRecipient",
+          "name": "_recipient",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_extraParam",
+          "type": "address"
+        }
+      ],
+      "name": "flashLoan",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "ethCollateralAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "getMaxBorrowAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getMaxWithdrawableCollateral",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "isLiquidatable",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "liquidate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "repayAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "repayCorn",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "s_userBorrowed",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "s_userCollateral",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawCollateral",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "contractName": "Lending",
+  "sourceName": "contracts/Lending.sol",
+  "bytecode": "0x608060405234801561000f575f5ffd5b5060405161146338038061146383398101604081905261002e91610160565b338061005357604051631e4fbdf760e01b81525f600482015260240160405180910390fd5b61005c816100f6565b50600280546001600160a01b038481166001600160a01b03199283161790925560018054928416929091168217905560405163095ea7b360e01b81523060048201525f19602482015263095ea7b3906044016020604051808303815f875af11580156100ca573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906100ee9190610191565b5050506101b7565b5f80546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b80516001600160a01b038116811461015b575f5ffd5b919050565b5f5f60408385031215610171575f5ffd5b61017a83610145565b915061018860208401610145565b90509250929050565b5f602082840312156101a1575f5ffd5b815180151581146101b0575f5ffd5b9392505050565b61129f806101c45f395ff3fe6080604052600436106100e4575f3560e01c8063715018a611610087578063bd00c24d11610057578063bd00c24d14610253578063d5de45a61461027e578063d678598a1461029d578063f2fde38b146102bc575f5ffd5b8063715018a6146101f25780638da5cb5b146102065780639210ae641461022c5780639e8169991461024b575f5ffd5b80632a5f2c23116100c25780632a5f2c231461016a5780632f865568146101955780636112fe2e146101b457806361a4d4ef146101d3575f5ffd5b806302c25b54146100e8578063042e02cf146101095780630835e1451461013d575b5f5ffd5b3480156100f3575f5ffd5b50610107610102366004611128565b6102db565b005b348015610114575f5ffd5b50610128610123366004611167565b610498565b60405190151581526020015b60405180910390f35b348015610148575f5ffd5b5061015c610157366004611167565b6104cb565b604051908152602001610134565b348015610175575f5ffd5b5061015c610184366004611167565b60046020525f908152604090205481565b3480156101a0575f5ffd5b506101076101af366004611167565b61056e565b3480156101bf575f5ffd5b506101076101ce366004611182565b6108b5565b3480156101de575f5ffd5b5061015c6101ed366004611182565b610a48565b3480156101fd575f5ffd5b50610107610af8565b348015610211575f5ffd5b505f546040516001600160a01b039091168152602001610134565b348015610237575f5ffd5b5061015c610246366004611167565b610b0b565b610107610c1b565b34801561025e575f5ffd5b5061015c61026d366004611167565b60036020525f908152604090205481565b348015610289575f5ffd5b50610107610298366004611182565b610d13565b3480156102a8575f5ffd5b506101076102b7366004611182565b610e70565b3480156102c7575f5ffd5b506101076102d6366004611167565b610fdb565b60015460405163a9059cbb60e01b81526001600160a01b038581166004830152602482018590529091169063a9059cbb906044016020604051808303815f875af115801561032b573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061034f9190611199565b5060405163542e3d5360e11b8152600481018390523360248201526001600160a01b0382811660448301525f919085169063a85c7aa6906064016020604051808303815f875af11580156103a5573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906103c99190611199565b90508061041d5760405162461bcd60e51b815260206004820152601a60248201527f4f7065726174696f6e2077617320756e7375636365737366756c00000000000060448201526064015b60405180910390fd5b6001546040516323b872dd60e01b81526001600160a01b03909116906323b872dd90610451908790309088906004016111b8565b6020604051808303815f875af115801561046d573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104919190611199565b5050505050565b5f5f6104a383611018565b90506104b86078670de0b6b3a76400006111f0565b6104c38260646111f0565b109392505050565b6001600160a01b038082165f908152600360209081526040808320546002548251634e8da32560e11b8152925194959194670de0b6b3a7640000949190921692639d1b464a92600480830193928290030181865afa15801561052f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610553919061120d565b61055d90836111f0565b6105679190611224565b9392505050565b61057781610498565b6105945760405163175ae04960e11b815260040160405180910390fd5b6001600160a01b038181165f908152600460208190526040918290205460015492516370a0823160e01b8152339281019290925292839216906370a0823190602401602060405180830381865afa1580156105f1573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610615919061120d565b1015610634576040516327f93fb360e11b815260040160405180910390fd5b6001600160a01b0382165f9081526003602052604081205490610656846104cb565b6001546040516323b872dd60e01b81529192505f916001600160a01b03909116906323b872dd9061068f903390309089906004016111b8565b6020604051808303815f875af11580156106ab573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906106cf9190611199565b9050806106ef5760405163c1cf149f60e01b815260040160405180910390fd5b6001600160a01b0385165f9081526004602052604081208190558261071485876111f0565b61071e9190611224565b90505f606461072e600a846111f0565b6107389190611224565b90505f6107458284611243565b90508581116107545780610756565b855b90506107628187611256565b6001600160a01b0389165f90815260036020526040808220929092559051339083908381818185875af1925050503d805f81146107ba576040519150601f19603f3d011682016040523d82523d5f602084013e6107bf565b606091505b50509050806107e15760405163a419137f60e01b815260040160405180910390fd5b336001600160a01b0316896001600160a01b03167f5a821a618ddb1a1fd304234a69c9d7f20c129d122fcf35593d13a07192664307848b60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610868573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061088c919061120d565b6040805193845260208401929092529082015260600160405180910390a3505050505050505050565b8015806108cf5750335f9081526003602052604090205481115b156108ed5760405163269cf19b60e11b815260040160405180910390fd5b335f908152600360205260408120805483929061090b908490611256565b9091555050335f908152600460205260409020541561092d5761092d33611072565b6040515f90339083908381818185875af1925050503d805f811461096c576040519150601f19603f3d011682016040523d82523d5f602084013e610971565b606091505b50509050806109935760405163a419137f60e01b815260040160405180910390fd5b81336001600160a01b03167fdaed309a628faec6cab72194019e2a1a34e890ca9bf9be99788992dd5469281960025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610a0f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610a33919061120d565b60405190815260200160405180910390a35050565b5f815f03610a5757505f919050565b5f670de0b6b3a764000060025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610ab1573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610ad5919061120d565b610adf90856111f0565b610ae99190611224565b9050607861055d8260646111f0565b610b00611099565b610b095f6110c5565b565b6001600160a01b0381165f908152600460209081526040808320546003909252822054818303610b3c579392505050565b5f610b4682610a48565b9050808303610b5957505f949350505050565b5f610b648483611256565b90505f60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610bb7573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610bdb919061120d565b610bed83670de0b6b3a76400006111f0565b610bf79190611224565b90506064610c066078836111f0565b610c109190611224565b979650505050505050565b345f03610c3b5760405163269cf19b60e11b815260040160405180910390fd5b335f9081526003602052604081208054349290610c59908490611243565b9250508190555034336001600160a01b03167f11f8990ac38271f23dea447d5728e9914fca7cea2edda43af6c43c415f8bc30b60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610cdc573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610d00919061120d565b60405190815260200160405180910390a3565b805f03610d335760405163269cf19b60e11b815260040160405180910390fd5b335f9081526004602052604081208054839290610d51908490611243565b90915550610d60905033611072565b6001546040516323b872dd60e01b81525f916001600160a01b0316906323b872dd90610d94903090339087906004016111b8565b6020604051808303815f875af1158015610db0573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610dd49190611199565b905080610df4576040516325b1478b60e21b815260040160405180910390fd5b81336001600160a01b03167f6c8250ea4d625c09ee567802242f70b37c9dcfdb10a904563781c1ed7663c7cc60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610a0f573d5f5f3e3d5ffd5b801580610e8a5750335f9081526004602052604090205481115b15610ea85760405163269cf19b60e11b815260040160405180910390fd5b335f9081526004602052604081208054839290610ec6908490611256565b90915550506001546040516323b872dd60e01b81525f916001600160a01b0316906323b872dd90610eff903390309087906004016111b8565b6020604051808303815f875af1158015610f1b573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610f3f9190611199565b905080610f5f5760405163c1cf149f60e01b815260040160405180910390fd5b81336001600160a01b03167fc1afad9537411d7ba4a74e9ee309d18f26f72ee1bfc63647b61e9bca0eec322c60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610a0f573d5f5f3e3d5ffd5b610fe3611099565b6001600160a01b03811661100c57604051631e4fbdf760e01b81525f6004820152602401610414565b611015816110c5565b50565b6001600160a01b0381165f908152600460205260408120548161103a846104cb565b9050815f0361104d57505f199392505050565b8161106082670de0b6b3a76400006111f0565b61106a9190611224565b949350505050565b61107b81610498565b1561101557604051632606396760e21b815260040160405180910390fd5b5f546001600160a01b03163314610b095760405163118cdaa760e01b8152336004820152602401610414565b5f80546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6001600160a01b0381168114611015575f5ffd5b5f5f5f6060848603121561113a575f5ffd5b833561114581611114565b925060208401359150604084013561115c81611114565b809150509250925092565b5f60208284031215611177575f5ffd5b813561056781611114565b5f60208284031215611192575f5ffd5b5035919050565b5f602082840312156111a9575f5ffd5b81518015158114610567575f5ffd5b6001600160a01b039384168152919092166020820152604081019190915260600190565b634e487b7160e01b5f52601160045260245ffd5b8082028115828204841417611207576112076111dc565b92915050565b5f6020828403121561121d575f5ffd5b5051919050565b5f8261123e57634e487b7160e01b5f52601260045260245ffd5b500490565b80820180821115611207576112076111dc565b81810381811115611207576112076111dc56fea26469706673582212202192cc3209d1dec23da1c998e2751430b9069d3eb1c8b36aaaedf3daf3f7ad1964736f6c634300081e0033",
+  "deployedBytecode": "0x6080604052600436106100e4575f3560e01c8063715018a611610087578063bd00c24d11610057578063bd00c24d14610253578063d5de45a61461027e578063d678598a1461029d578063f2fde38b146102bc575f5ffd5b8063715018a6146101f25780638da5cb5b146102065780639210ae641461022c5780639e8169991461024b575f5ffd5b80632a5f2c23116100c25780632a5f2c231461016a5780632f865568146101955780636112fe2e146101b457806361a4d4ef146101d3575f5ffd5b806302c25b54146100e8578063042e02cf146101095780630835e1451461013d575b5f5ffd5b3480156100f3575f5ffd5b50610107610102366004611128565b6102db565b005b348015610114575f5ffd5b50610128610123366004611167565b610498565b60405190151581526020015b60405180910390f35b348015610148575f5ffd5b5061015c610157366004611167565b6104cb565b604051908152602001610134565b348015610175575f5ffd5b5061015c610184366004611167565b60046020525f908152604090205481565b3480156101a0575f5ffd5b506101076101af366004611167565b61056e565b3480156101bf575f5ffd5b506101076101ce366004611182565b6108b5565b3480156101de575f5ffd5b5061015c6101ed366004611182565b610a48565b3480156101fd575f5ffd5b50610107610af8565b348015610211575f5ffd5b505f546040516001600160a01b039091168152602001610134565b348015610237575f5ffd5b5061015c610246366004611167565b610b0b565b610107610c1b565b34801561025e575f5ffd5b5061015c61026d366004611167565b60036020525f908152604090205481565b348015610289575f5ffd5b50610107610298366004611182565b610d13565b3480156102a8575f5ffd5b506101076102b7366004611182565b610e70565b3480156102c7575f5ffd5b506101076102d6366004611167565b610fdb565b60015460405163a9059cbb60e01b81526001600160a01b038581166004830152602482018590529091169063a9059cbb906044016020604051808303815f875af115801561032b573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061034f9190611199565b5060405163542e3d5360e11b8152600481018390523360248201526001600160a01b0382811660448301525f919085169063a85c7aa6906064016020604051808303815f875af11580156103a5573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906103c99190611199565b90508061041d5760405162461bcd60e51b815260206004820152601a60248201527f4f7065726174696f6e2077617320756e7375636365737366756c00000000000060448201526064015b60405180910390fd5b6001546040516323b872dd60e01b81526001600160a01b03909116906323b872dd90610451908790309088906004016111b8565b6020604051808303815f875af115801561046d573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104919190611199565b5050505050565b5f5f6104a383611018565b90506104b86078670de0b6b3a76400006111f0565b6104c38260646111f0565b109392505050565b6001600160a01b038082165f908152600360209081526040808320546002548251634e8da32560e11b8152925194959194670de0b6b3a7640000949190921692639d1b464a92600480830193928290030181865afa15801561052f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610553919061120d565b61055d90836111f0565b6105679190611224565b9392505050565b61057781610498565b6105945760405163175ae04960e11b815260040160405180910390fd5b6001600160a01b038181165f908152600460208190526040918290205460015492516370a0823160e01b8152339281019290925292839216906370a0823190602401602060405180830381865afa1580156105f1573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610615919061120d565b1015610634576040516327f93fb360e11b815260040160405180910390fd5b6001600160a01b0382165f9081526003602052604081205490610656846104cb565b6001546040516323b872dd60e01b81529192505f916001600160a01b03909116906323b872dd9061068f903390309089906004016111b8565b6020604051808303815f875af11580156106ab573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906106cf9190611199565b9050806106ef5760405163c1cf149f60e01b815260040160405180910390fd5b6001600160a01b0385165f9081526004602052604081208190558261071485876111f0565b61071e9190611224565b90505f606461072e600a846111f0565b6107389190611224565b90505f6107458284611243565b90508581116107545780610756565b855b90506107628187611256565b6001600160a01b0389165f90815260036020526040808220929092559051339083908381818185875af1925050503d805f81146107ba576040519150601f19603f3d011682016040523d82523d5f602084013e6107bf565b606091505b50509050806107e15760405163a419137f60e01b815260040160405180910390fd5b336001600160a01b0316896001600160a01b03167f5a821a618ddb1a1fd304234a69c9d7f20c129d122fcf35593d13a07192664307848b60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610868573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061088c919061120d565b6040805193845260208401929092529082015260600160405180910390a3505050505050505050565b8015806108cf5750335f9081526003602052604090205481115b156108ed5760405163269cf19b60e11b815260040160405180910390fd5b335f908152600360205260408120805483929061090b908490611256565b9091555050335f908152600460205260409020541561092d5761092d33611072565b6040515f90339083908381818185875af1925050503d805f811461096c576040519150601f19603f3d011682016040523d82523d5f602084013e610971565b606091505b50509050806109935760405163a419137f60e01b815260040160405180910390fd5b81336001600160a01b03167fdaed309a628faec6cab72194019e2a1a34e890ca9bf9be99788992dd5469281960025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610a0f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610a33919061120d565b60405190815260200160405180910390a35050565b5f815f03610a5757505f919050565b5f670de0b6b3a764000060025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610ab1573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610ad5919061120d565b610adf90856111f0565b610ae99190611224565b9050607861055d8260646111f0565b610b00611099565b610b095f6110c5565b565b6001600160a01b0381165f908152600460209081526040808320546003909252822054818303610b3c579392505050565b5f610b4682610a48565b9050808303610b5957505f949350505050565b5f610b648483611256565b90505f60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610bb7573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610bdb919061120d565b610bed83670de0b6b3a76400006111f0565b610bf79190611224565b90506064610c066078836111f0565b610c109190611224565b979650505050505050565b345f03610c3b5760405163269cf19b60e11b815260040160405180910390fd5b335f9081526003602052604081208054349290610c59908490611243565b9250508190555034336001600160a01b03167f11f8990ac38271f23dea447d5728e9914fca7cea2edda43af6c43c415f8bc30b60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610cdc573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610d00919061120d565b60405190815260200160405180910390a3565b805f03610d335760405163269cf19b60e11b815260040160405180910390fd5b335f9081526004602052604081208054839290610d51908490611243565b90915550610d60905033611072565b6001546040516323b872dd60e01b81525f916001600160a01b0316906323b872dd90610d94903090339087906004016111b8565b6020604051808303815f875af1158015610db0573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610dd49190611199565b905080610df4576040516325b1478b60e21b815260040160405180910390fd5b81336001600160a01b03167f6c8250ea4d625c09ee567802242f70b37c9dcfdb10a904563781c1ed7663c7cc60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610a0f573d5f5f3e3d5ffd5b801580610e8a5750335f9081526004602052604090205481115b15610ea85760405163269cf19b60e11b815260040160405180910390fd5b335f9081526004602052604081208054839290610ec6908490611256565b90915550506001546040516323b872dd60e01b81525f916001600160a01b0316906323b872dd90610eff903390309087906004016111b8565b6020604051808303815f875af1158015610f1b573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610f3f9190611199565b905080610f5f5760405163c1cf149f60e01b815260040160405180910390fd5b81336001600160a01b03167fc1afad9537411d7ba4a74e9ee309d18f26f72ee1bfc63647b61e9bca0eec322c60025f9054906101000a90046001600160a01b03166001600160a01b0316639d1b464a6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610a0f573d5f5f3e3d5ffd5b610fe3611099565b6001600160a01b03811661100c57604051631e4fbdf760e01b81525f6004820152602401610414565b611015816110c5565b50565b6001600160a01b0381165f908152600460205260408120548161103a846104cb565b9050815f0361104d57505f199392505050565b8161106082670de0b6b3a76400006111f0565b61106a9190611224565b949350505050565b61107b81610498565b1561101557604051632606396760e21b815260040160405180910390fd5b5f546001600160a01b03163314610b095760405163118cdaa760e01b8152336004820152602401610414565b5f80546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6001600160a01b0381168114611015575f5ffd5b5f5f5f6060848603121561113a575f5ffd5b833561114581611114565b925060208401359150604084013561115c81611114565b809150509250925092565b5f60208284031215611177575f5ffd5b813561056781611114565b5f60208284031215611192575f5ffd5b5035919050565b5f602082840312156111a9575f5ffd5b81518015158114610567575f5ffd5b6001600160a01b039384168152919092166020820152604081019190915260600190565b634e487b7160e01b5f52601160045260245ffd5b8082028115828204841417611207576112076111dc565b92915050565b5f6020828403121561121d575f5ffd5b5051919050565b5f8261123e57634e487b7160e01b5f52601260045260245ffd5b500490565b80820180821115611207576112076111dc565b81810381811115611207576112076111dc56fea26469706673582212202192cc3209d1dec23da1c998e2751430b9069d3eb1c8b36aaaedf3daf3f7ad1964736f6c634300081e0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/Lending.sol",
+  "devdoc": {
+    "errors": {
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "borrowCorn(uint256)": {
+        "params": {
+          "borrowAmount": "The amount of corn to borrow"
+        }
+      },
+      "calculateCollateralValue(address)": {
+        "params": {
+          "user": "The address of the user to calculate the collateral value for"
+        },
+        "returns": {
+          "_0": "uint256 The collateral value"
+        }
+      },
+      "isLiquidatable(address)": {
+        "params": {
+          "user": "The address of the user to check"
+        },
+        "returns": {
+          "_0": "bool True if the position is liquidatable, false otherwise"
+        }
+      },
+      "liquidate(address)": {
+        "params": {
+          "user": "The address of the user to liquidate"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "repayCorn(uint256)": {
+        "params": {
+          "repayAmount": "The amount of corn to repay"
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "withdrawCollateral(uint256)": {
+        "params": {
+          "amount": "The amount of collateral to withdraw"
+        }
+      }
+    },
+    "version": 1
+  },
+  "evm": {
+    "gasEstimates": {
+      "creation": {
+        "codeDepositCost": "953400",
+        "executionCost": "infinite",
+        "totalCost": "infinite"
+      },
+      "external": {
+        "addCollateral()": "infinite",
+        "borrowCorn(uint256)": "infinite",
+        "calculateCollateralValue(address)": "infinite",
+        "flashLoan(address,uint256,address)": "infinite",
+        "getMaxBorrowAmount(uint256)": "infinite",
+        "getMaxWithdrawableCollateral(address)": "infinite",
+        "isLiquidatable(address)": "infinite",
+        "liquidate(address)": "infinite",
+        "owner()": "2344",
+        "renounceOwnership()": "infinite",
+        "repayCorn(uint256)": "infinite",
+        "s_userBorrowed(address)": "2533",
+        "s_userCollateral(address)": "2532",
+        "transferOwnership(address)": "infinite",
+        "withdrawCollateral(uint256)": "infinite"
+      },
+      "internal": {
+        "_calculatePositionRatio(address)": "infinite",
+        "_validatePosition(address)": "infinite"
+      }
+    }
+  },
+  "metadata": "{\"compiler\":{\"version\":\"0.8.30+commit.73712a01\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_cornDEX\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_corn\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"Lending__BorrowingFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Lending__InsufficientLiquidatorCorn\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Lending__InvalidAmount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Lending__NotLiquidatable\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Lending__PositionSafe\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Lending__RepayingFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Lending__TransferFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Lending__UnsafePositionRatio\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"AssetBorrowed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"AssetRepaid\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"CollateralAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"CollateralWithdrawn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"liquidator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountForLiquidator\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"liquidatedUserDebt\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"Liquidation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"addCollateral\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"borrowAmount\",\"type\":\"uint256\"}],\"name\":\"borrowCorn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"calculateCollateralValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IFlashLoanRecipient\",\"name\":\"_recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_extraParam\",\"type\":\"address\"}],\"name\":\"flashLoan\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"ethCollateralAmount\",\"type\":\"uint256\"}],\"name\":\"getMaxBorrowAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getMaxWithdrawableCollateral\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"isLiquidatable\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"liquidate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"repayAmount\",\"type\":\"uint256\"}],\"name\":\"repayCorn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"s_userBorrowed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"s_userCollateral\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdrawCollateral\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"errors\":{\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}]},\"kind\":\"dev\",\"methods\":{\"borrowCorn(uint256)\":{\"params\":{\"borrowAmount\":\"The amount of corn to borrow\"}},\"calculateCollateralValue(address)\":{\"params\":{\"user\":\"The address of the user to calculate the collateral value for\"},\"returns\":{\"_0\":\"uint256 The collateral value\"}},\"isLiquidatable(address)\":{\"params\":{\"user\":\"The address of the user to check\"},\"returns\":{\"_0\":\"bool True if the position is liquidatable, false otherwise\"}},\"liquidate(address)\":{\"params\":{\"user\":\"The address of the user to liquidate\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"repayCorn(uint256)\":{\"params\":{\"repayAmount\":\"The amount of corn to repay\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"withdrawCollateral(uint256)\":{\"params\":{\"amount\":\"The amount of collateral to withdraw\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"addCollateral()\":{\"notice\":\"Allows users to add collateral to their account\"},\"borrowCorn(uint256)\":{\"notice\":\"Allows users to borrow corn based on their collateral\"},\"calculateCollateralValue(address)\":{\"notice\":\"Calculates the total collateral value for a user based on their collateral balance\"},\"isLiquidatable(address)\":{\"notice\":\"Checks if a user's position can be liquidated\"},\"liquidate(address)\":{\"notice\":\"Allows liquidators to liquidate unsafe positions\"},\"repayCorn(uint256)\":{\"notice\":\"Allows users to repay corn and reduce their debt\"},\"withdrawCollateral(uint256)\":{\"notice\":\"Allows users to withdraw collateral as long as it doesnt make them liquidatable\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project/contracts/Lending.sol\":\"Lending\"},\"evmVersion\":\"prague\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\"project/:@openzeppelin/contracts/=npm/@openzeppelin/contracts@5.7.0/\"]},\"sources\":{\"npm/@openzeppelin/contracts@5.7.0/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Context} from \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    constructor(address initialOwner) {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\"},\"npm/@openzeppelin/contracts@5.7.0/interfaces/draft-IERC6093.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.5.0) (interfaces/draft-IERC6093.sol)\\n\\npragma solidity >=0.8.4;\\n\\n/**\\n * @dev Standard ERC-20 Errors\\n * Interface of the https://eips.ethereum.org/EIPS/eip-6093[ERC-6093] custom errors for ERC-20 tokens.\\n */\\ninterface IERC20Errors {\\n    /**\\n     * @dev Indicates an error related to the current `balance` of a `sender`. Used in transfers.\\n     * @param sender Address whose tokens are being transferred.\\n     * @param balance Current balance for the interacting account.\\n     * @param needed Minimum amount required to perform a transfer.\\n     */\\n    error ERC20InsufficientBalance(address sender, uint256 balance, uint256 needed);\\n\\n    /**\\n     * @dev Indicates a failure with the token `sender`. Used in transfers.\\n     * @param sender Address whose tokens are being transferred.\\n     */\\n    error ERC20InvalidSender(address sender);\\n\\n    /**\\n     * @dev Indicates a failure with the token `receiver`. Used in transfers.\\n     * @param receiver Address to which tokens are being transferred.\\n     */\\n    error ERC20InvalidReceiver(address receiver);\\n\\n    /**\\n     * @dev Indicates a failure with the `spender`\\u2019s `allowance`. Used in transfers.\\n     * @param spender Address that may be allowed to operate on tokens without being their owner.\\n     * @param allowance Amount of tokens a `spender` is allowed to operate with.\\n     * @param needed Minimum amount required to perform a transfer.\\n     */\\n    error ERC20InsufficientAllowance(address spender, uint256 allowance, uint256 needed);\\n\\n    /**\\n     * @dev Indicates a failure with the `approver` of a token to be approved. Used in approvals.\\n     * @param approver Address initiating an approval operation.\\n     */\\n    error ERC20InvalidApprover(address approver);\\n\\n    /**\\n     * @dev Indicates a failure with the `spender` to be approved. Used in approvals.\\n     * @param spender Address that may be allowed to operate on tokens without being their owner.\\n     */\\n    error ERC20InvalidSpender(address spender);\\n}\\n\\n/**\\n * @dev Standard ERC-721 Errors\\n * Interface of the https://eips.ethereum.org/EIPS/eip-6093[ERC-6093] custom errors for ERC-721 tokens.\\n */\\ninterface IERC721Errors {\\n    /**\\n     * @dev Indicates that an address can't be an owner. For example, `address(0)` is a forbidden owner in ERC-721.\\n     * Used in balance queries.\\n     * @param owner Address of the current owner of a token.\\n     */\\n    error ERC721InvalidOwner(address owner);\\n\\n    /**\\n     * @dev Indicates a `tokenId` whose `owner` is the zero address.\\n     * @param tokenId Identifier number of a token.\\n     */\\n    error ERC721NonexistentToken(uint256 tokenId);\\n\\n    /**\\n     * @dev Indicates an error related to the ownership over a particular token. Used in transfers.\\n     * @param sender Address whose tokens are being transferred.\\n     * @param tokenId Identifier number of a token.\\n     * @param owner Address of the current owner of a token.\\n     */\\n    error ERC721IncorrectOwner(address sender, uint256 tokenId, address owner);\\n\\n    /**\\n     * @dev Indicates a failure with the token `sender`. Used in transfers.\\n     * @param sender Address whose tokens are being transferred.\\n     */\\n    error ERC721InvalidSender(address sender);\\n\\n    /**\\n     * @dev Indicates a failure with the token `receiver`. Used in transfers.\\n     * @param receiver Address to which tokens are being transferred.\\n     */\\n    error ERC721InvalidReceiver(address receiver);\\n\\n    /**\\n     * @dev Indicates a failure with the `operator`\\u2019s approval. Used in transfers.\\n     * @param operator Address that may be allowed to operate on tokens without being their owner.\\n     * @param tokenId Identifier number of a token.\\n     */\\n    error ERC721InsufficientApproval(address operator, uint256 tokenId);\\n\\n    /**\\n     * @dev Indicates a failure with the `approver` of a token to be approved. Used in approvals.\\n     * @param approver Address initiating an approval operation.\\n     */\\n    error ERC721InvalidApprover(address approver);\\n\\n    /**\\n     * @dev Indicates a failure with the `operator` to be approved. Used in approvals.\\n     * @param operator Address that may be allowed to operate on tokens without being their owner.\\n     */\\n    error ERC721InvalidOperator(address operator);\\n}\\n\\n/**\\n * @dev Standard ERC-1155 Errors\\n * Interface of the https://eips.ethereum.org/EIPS/eip-6093[ERC-6093] custom errors for ERC-1155 tokens.\\n */\\ninterface IERC1155Errors {\\n    /**\\n     * @dev Indicates an error related to the current `balance` of a `sender`. Used in transfers.\\n     * @param sender Address whose tokens are being transferred.\\n     * @param balance Current balance for the interacting account.\\n     * @param needed Minimum amount required to perform a transfer.\\n     * @param tokenId Identifier number of a token.\\n     */\\n    error ERC1155InsufficientBalance(address sender, uint256 balance, uint256 needed, uint256 tokenId);\\n\\n    /**\\n     * @dev Indicates a failure with the token `sender`. Used in transfers.\\n     * @param sender Address whose tokens are being transferred.\\n     */\\n    error ERC1155InvalidSender(address sender);\\n\\n    /**\\n     * @dev Indicates a failure with the token `receiver`. Used in transfers.\\n     * @param receiver Address to which tokens are being transferred.\\n     */\\n    error ERC1155InvalidReceiver(address receiver);\\n\\n    /**\\n     * @dev Indicates a failure with the `operator`\\u2019s approval. Used in transfers.\\n     * @param operator Address that may be allowed to operate on tokens without being their owner.\\n     * @param owner Address of the current owner of a token.\\n     */\\n    error ERC1155MissingApprovalForAll(address operator, address owner);\\n\\n    /**\\n     * @dev Indicates a failure with the `approver` of a token to be approved. Used in approvals.\\n     * @param approver Address initiating an approval operation.\\n     */\\n    error ERC1155InvalidApprover(address approver);\\n\\n    /**\\n     * @dev Indicates a failure with the `operator` to be approved. Used in approvals.\\n     * @param operator Address that may be allowed to operate on tokens without being their owner.\\n     */\\n    error ERC1155InvalidOperator(address operator);\\n\\n    /**\\n     * @dev Indicates an array length mismatch between ids and values in a safeBatchTransferFrom operation.\\n     * Used in batch transfers.\\n     * @param idsLength Length of the array of token identifiers\\n     * @param valuesLength Length of the array of token amounts\\n     */\\n    error ERC1155InvalidArrayLength(uint256 idsLength, uint256 valuesLength);\\n}\\n\",\"keccak256\":\"0x1b88b3fb3d85ba5496d7d5f396f83ee1fddcdd6762059ff65992655b67920998\",\"license\":\"MIT\"},\"npm/@openzeppelin/contracts@5.7.0/token/ERC20/ERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.5.0) (token/ERC20/ERC20.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {IERC20} from \\\"./IERC20.sol\\\";\\nimport {IERC20Metadata} from \\\"./extensions/IERC20Metadata.sol\\\";\\nimport {Context} from \\\"../../utils/Context.sol\\\";\\nimport {IERC20Errors} from \\\"../../interfaces/draft-IERC6093.sol\\\";\\n\\n/**\\n * @dev Implementation of the {IERC20} interface.\\n *\\n * This implementation is agnostic to the way tokens are created. This means\\n * that a supply mechanism has to be added in a derived contract using {_mint}.\\n *\\n * TIP: For a detailed writeup see our guide\\n * https://forum.openzeppelin.com/t/how-to-implement-erc20-supply-mechanisms/226[How\\n * to implement supply mechanisms].\\n *\\n * The default value of {decimals} is 18. To change this, you should override\\n * this function so it returns a different value.\\n *\\n * We have followed general OpenZeppelin Contracts guidelines: functions revert\\n * instead returning `false` on failure. This behavior is nonetheless\\n * conventional and does not conflict with the expectations of ERC-20\\n * applications.\\n */\\nabstract contract ERC20 is Context, IERC20, IERC20Metadata, IERC20Errors {\\n    mapping(address account => uint256) private _balances;\\n\\n    mapping(address account => mapping(address spender => uint256)) private _allowances;\\n\\n    uint256 private _totalSupply;\\n\\n    string private _name;\\n    string private _symbol;\\n\\n    /**\\n     * @dev Sets the values for {name} and {symbol}.\\n     *\\n     * Both values are immutable: they can only be set once during construction.\\n     */\\n    constructor(string memory name_, string memory symbol_) {\\n        _name = name_;\\n        _symbol = symbol_;\\n    }\\n\\n    /**\\n     * @dev Returns the name of the token.\\n     */\\n    function name() public view virtual returns (string memory) {\\n        return _name;\\n    }\\n\\n    /**\\n     * @dev Returns the symbol of the token, usually a shorter version of the\\n     * name.\\n     */\\n    function symbol() public view virtual returns (string memory) {\\n        return _symbol;\\n    }\\n\\n    /**\\n     * @dev Returns the number of decimals used to get its user representation.\\n     * For example, if `decimals` equals `2`, a balance of `505` tokens should\\n     * be displayed to a user as `5.05` (`505 / 10 ** 2`).\\n     *\\n     * Tokens usually opt for a value of 18, imitating the relationship between\\n     * Ether and Wei. This is the default value returned by this function, unless\\n     * it's overridden.\\n     *\\n     * NOTE: This information is only used for _display_ purposes: it in\\n     * no way affects any of the arithmetic of the contract, including\\n     * {IERC20-balanceOf} and {IERC20-transfer}.\\n     */\\n    function decimals() public view virtual returns (uint8) {\\n        return 18;\\n    }\\n\\n    /// @inheritdoc IERC20\\n    function totalSupply() public view virtual returns (uint256) {\\n        return _totalSupply;\\n    }\\n\\n    /// @inheritdoc IERC20\\n    function balanceOf(address account) public view virtual returns (uint256) {\\n        return _balances[account];\\n    }\\n\\n    /**\\n     * @dev See {IERC20-transfer}.\\n     *\\n     * Requirements:\\n     *\\n     * - `to` cannot be the zero address.\\n     * - the caller must have a balance of at least `value`.\\n     */\\n    function transfer(address to, uint256 value) public virtual returns (bool) {\\n        address owner = _msgSender();\\n        _transfer(owner, to, value);\\n        return true;\\n    }\\n\\n    /// @inheritdoc IERC20\\n    function allowance(address owner, address spender) public view virtual returns (uint256) {\\n        return _allowances[owner][spender];\\n    }\\n\\n    /**\\n     * @dev See {IERC20-approve}.\\n     *\\n     * NOTE: If `value` is the maximum `uint256`, the allowance is not updated on\\n     * `transferFrom`. This is semantically equivalent to an infinite approval.\\n     *\\n     * Requirements:\\n     *\\n     * - `spender` cannot be the zero address.\\n     */\\n    function approve(address spender, uint256 value) public virtual returns (bool) {\\n        address owner = _msgSender();\\n        _approve(owner, spender, value);\\n        return true;\\n    }\\n\\n    /**\\n     * @dev See {IERC20-transferFrom}.\\n     *\\n     * Skips emitting an {Approval} event indicating an allowance update. This is not\\n     * required by the ERC. See {xref-ERC20-_approve-address-address-uint256-bool-}[_approve].\\n     *\\n     * NOTE: Does not update the allowance if the current allowance\\n     * is the maximum `uint256`.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` and `to` cannot be the zero address.\\n     * - `from` must have a balance of at least `value`.\\n     * - the caller must have allowance for ``from``'s tokens of at least\\n     * `value`.\\n     */\\n    function transferFrom(address from, address to, uint256 value) public virtual returns (bool) {\\n        address spender = _msgSender();\\n        _spendAllowance(from, spender, value);\\n        _transfer(from, to, value);\\n        return true;\\n    }\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to`.\\n     *\\n     * This internal function is equivalent to {transfer}, and can be used to\\n     * e.g. implement automatic token fees, slashing mechanisms, etc.\\n     *\\n     * Emits a {Transfer} event.\\n     *\\n     * NOTE: This function is not virtual, {_update} should be overridden instead.\\n     */\\n    function _transfer(address from, address to, uint256 value) internal {\\n        if (from == address(0)) {\\n            revert ERC20InvalidSender(address(0));\\n        }\\n        if (to == address(0)) {\\n            revert ERC20InvalidReceiver(address(0));\\n        }\\n        _update(from, to, value);\\n    }\\n\\n    /**\\n     * @dev Transfers a `value` amount of tokens from `from` to `to`, or alternatively mints (or burns) if `from`\\n     * (or `to`) is the zero address. All customizations to transfers, mints, and burns should be done by overriding\\n     * this function.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function _update(address from, address to, uint256 value) internal virtual {\\n        if (from == address(0)) {\\n            // Overflow check required: The rest of the code assumes that totalSupply never overflows\\n            _totalSupply += value;\\n        } else {\\n            uint256 fromBalance = _balances[from];\\n            if (fromBalance < value) {\\n                revert ERC20InsufficientBalance(from, fromBalance, value);\\n            }\\n            unchecked {\\n                // Overflow not possible: value <= fromBalance <= totalSupply.\\n                _balances[from] = fromBalance - value;\\n            }\\n        }\\n\\n        if (to == address(0)) {\\n            unchecked {\\n                // Overflow not possible: value <= totalSupply or value <= fromBalance <= totalSupply.\\n                _totalSupply -= value;\\n            }\\n        } else {\\n            unchecked {\\n                // Overflow not possible: balance + value is at most totalSupply, which we know fits into a uint256.\\n                _balances[to] += value;\\n            }\\n        }\\n\\n        emit Transfer(from, to, value);\\n    }\\n\\n    /**\\n     * @dev Creates a `value` amount of tokens and assigns them to `account`, by transferring it from address(0).\\n     * Relies on the `_update` mechanism\\n     *\\n     * Emits a {Transfer} event with `from` set to the zero address.\\n     *\\n     * NOTE: This function is not virtual, {_update} should be overridden instead.\\n     */\\n    function _mint(address account, uint256 value) internal {\\n        if (account == address(0)) {\\n            revert ERC20InvalidReceiver(address(0));\\n        }\\n        _update(address(0), account, value);\\n    }\\n\\n    /**\\n     * @dev Destroys a `value` amount of tokens from `account`, lowering the total supply.\\n     * Relies on the `_update` mechanism.\\n     *\\n     * Emits a {Transfer} event with `to` set to the zero address.\\n     *\\n     * NOTE: This function is not virtual, {_update} should be overridden instead\\n     */\\n    function _burn(address account, uint256 value) internal {\\n        if (account == address(0)) {\\n            revert ERC20InvalidSender(address(0));\\n        }\\n        _update(account, address(0), value);\\n    }\\n\\n    /**\\n     * @dev Sets `value` as the allowance of `spender` over the `owner`'s tokens.\\n     *\\n     * This internal function is equivalent to `approve`, and can be used to\\n     * e.g. set automatic allowances for certain subsystems, etc.\\n     *\\n     * Emits an {Approval} event.\\n     *\\n     * Requirements:\\n     *\\n     * - `owner` cannot be the zero address.\\n     * - `spender` cannot be the zero address.\\n     *\\n     * Overrides to this logic should be done to the variant with an additional `bool emitEvent` argument.\\n     */\\n    function _approve(address owner, address spender, uint256 value) internal {\\n        _approve(owner, spender, value, true);\\n    }\\n\\n    /**\\n     * @dev Variant of {_approve} with an optional flag to enable or disable the {Approval} event.\\n     *\\n     * By default (when calling {_approve}) the flag is set to true. On the other hand, approval changes made by\\n     * `_spendAllowance` during the `transferFrom` operation sets the flag to false. This saves gas by not emitting any\\n     * `Approval` event during `transferFrom` operations.\\n     *\\n     * Anyone who wishes to continue emitting `Approval` events on the `transferFrom` operation can force the flag to\\n     * true using the following override:\\n     *\\n     * ```solidity\\n     * function _approve(address owner, address spender, uint256 value, bool) internal virtual override {\\n     *     super._approve(owner, spender, value, true);\\n     * }\\n     * ```\\n     *\\n     * Requirements are the same as {_approve}.\\n     */\\n    function _approve(address owner, address spender, uint256 value, bool emitEvent) internal virtual {\\n        if (owner == address(0)) {\\n            revert ERC20InvalidApprover(address(0));\\n        }\\n        if (spender == address(0)) {\\n            revert ERC20InvalidSpender(address(0));\\n        }\\n        _allowances[owner][spender] = value;\\n        if (emitEvent) {\\n            emit Approval(owner, spender, value);\\n        }\\n    }\\n\\n    /**\\n     * @dev Updates `owner`'s allowance for `spender` based on spent `value`.\\n     *\\n     * Does not update the allowance value in case of infinite allowance.\\n     * Revert if not enough allowance is available.\\n     *\\n     * Does not emit an {Approval} event.\\n     */\\n    function _spendAllowance(address owner, address spender, uint256 value) internal virtual {\\n        uint256 currentAllowance = allowance(owner, spender);\\n        if (currentAllowance < type(uint256).max) {\\n            if (currentAllowance < value) {\\n                revert ERC20InsufficientAllowance(spender, currentAllowance, value);\\n            }\\n            unchecked {\\n                _approve(owner, spender, currentAllowance - value, false);\\n            }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x669464167428061ee0f8618b73b3ee90aff8405683e7ddde8cd77dadaa1afe29\",\"license\":\"MIT\"},\"npm/@openzeppelin/contracts@5.7.0/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity >=0.4.16;\\n\\n/**\\n * @dev Interface of the ERC-20 standard as defined in the ERC.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0x74ed01eb66b923d0d0cfe3be84604ac04b76482a55f9dd655e1ef4d367f95bc2\",\"license\":\"MIT\"},\"npm/@openzeppelin/contracts@5.7.0/token/ERC20/extensions/IERC20Metadata.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (token/ERC20/extensions/IERC20Metadata.sol)\\n\\npragma solidity >=0.6.2;\\n\\nimport {IERC20} from \\\"../IERC20.sol\\\";\\n\\n/**\\n * @dev Interface for the optional metadata functions from the ERC-20 standard.\\n */\\ninterface IERC20Metadata is IERC20 {\\n    /**\\n     * @dev Returns the name of the token.\\n     */\\n    function name() external view returns (string memory);\\n\\n    /**\\n     * @dev Returns the symbol of the token.\\n     */\\n    function symbol() external view returns (string memory);\\n\\n    /**\\n     * @dev Returns the decimals places of the token.\\n     */\\n    function decimals() external view returns (uint8);\\n}\\n\",\"keccak256\":\"0xd6fa4088198f04eef10c5bce8a2f4d60554b7ec4b987f684393c01bf79b94d9f\",\"license\":\"MIT\"},\"npm/@openzeppelin/contracts@5.7.0/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"project/contracts/Corn.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\npragma solidity ^0.8.20;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/ERC20.sol\\\";\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\n\\nerror Corn__InvalidAmount();\\nerror Corn__InsufficientBalance();\\nerror Corn__InsufficientAllowance();\\nerror Corn__InvalidAddress();\\n\\ncontract Corn is ERC20, Ownable {\\n    constructor() ERC20(\\\"CORN\\\", \\\"CORN\\\") Ownable(msg.sender) {}\\n\\n    function mintTo(address to, uint256 amount) external onlyOwner returns (bool) {\\n        if (to == address(0)) {\\n            revert Corn__InvalidAddress();\\n        }\\n        if (amount == 0) {\\n            revert Corn__InvalidAmount();\\n        }\\n        _mint(to, amount);\\n        return true;\\n    }\\n}\\n\",\"keccak256\":\"0x1fe76b42b3dad63e827222a89ffecabad669010647857823c863872148be3126\",\"license\":\"UNLICENSED\"},\"project/contracts/CornDEX.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.20;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\n\\n/**\\n * @notice Simple DEX contract that allows users to swap ETH for CORN and CORN for ETH\\n */\\ncontract CornDEX {\\n    /* ========== GLOBAL VARIABLES ========== */\\n\\n    IERC20 token; //instantiates the imported contract\\n    uint256 public totalLiquidity;\\n    mapping(address => uint256) public liquidity;\\n\\n    /* ========== EVENTS ========== */\\n\\n    event Swap(address swapper, address inputToken, uint256 inputAmount, address outputToken, uint256 outputAmount);\\n    event PriceUpdated(uint256 price);\\n    /**\\n     * @notice Emitted when liquidity provided to DEX and mints LPTs.\\n     */\\n    event LiquidityProvided(address liquidityProvider, uint256 liquidityMinted, uint256 ethInput, uint256 tokensInput);\\n\\n    /**\\n     * @notice Emitted when liquidity removed from DEX and decreases LPT count within DEX.\\n     */\\n    event LiquidityRemoved(\\n        address liquidityRemover,\\n        uint256 liquidityWithdrawn,\\n        uint256 tokensOutput,\\n        uint256 ethOutput\\n    );\\n\\n    /* ========== CONSTRUCTOR ========== */\\n\\n    constructor(address tokenAddr) {\\n        token = IERC20(tokenAddr); //specifies the token address that will hook into the interface and be used through the variable 'token'\\n    }\\n\\n    /* ========== MUTATIVE FUNCTIONS ========== */\\n\\n    /**\\n     * @notice initializes amount of tokens that will be transferred to the DEX itself from the erc20 contract. Loads contract up with both ETH and CORN.\\n     * @param tokens amount to be transferred to DEX\\n     * @return totalLiquidity is the number of LPTs minting as a result of deposits made to DEX contract\\n     * NOTE: since ratio is 1:1, this is fine to initialize the totalLiquidity as equal to eth balance of contract.\\n     */\\n    function init(uint256 tokens) public payable returns (uint256) {\\n        require(totalLiquidity == 0, \\\"DEX: init - already has liquidity\\\");\\n        totalLiquidity = address(this).balance;\\n        liquidity[msg.sender] = totalLiquidity;\\n        require(token.transferFrom(msg.sender, address(this), tokens), \\\"DEX: init - transfer did not transact\\\");\\n        return totalLiquidity;\\n    }\\n\\n    /**\\n     * @notice returns the amount you should receive (yOutput) when given the reserves of both assets in the pool\\n     */\\n    function price(uint256 xInput, uint256 xReserves, uint256 yReserves) public pure returns (uint256 yOutput) {\\n        uint256 numerator = xInput * yReserves;\\n        uint256 denominator = (xReserves) + xInput;\\n        return (numerator / denominator);\\n    }\\n\\n    /**\\n     * @notice returns the current price of ETH in CORN\\n     */\\n    function currentPrice() public view returns (uint256 _currentPrice) {\\n        _currentPrice = price(1 ether, address(this).balance, token.balanceOf(address(this)));\\n    }\\n\\n    /**\\n     * @notice returns the amount you need to put in (xInput) when given the amount of yOutput you want along with the reserves of both assets in the pool\\n     */\\n    function calculateXInput(\\n        uint256 yOutput,\\n        uint256 xReserves,\\n        uint256 yReserves\\n    ) public pure returns (uint256 xInput) {\\n        uint256 numerator = yOutput * xReserves;\\n        uint256 denominator = yReserves - yOutput;\\n\\n        return (numerator / denominator) + 1;\\n    }\\n\\n    /**\\n     * @notice sends Ether to DEX in exchange for $CORN\\n     */\\n    function ethToToken() internal returns (uint256 tokenOutput) {\\n        require(msg.value > 0, \\\"cannot swap 0 ETH\\\");\\n        uint256 ethReserve = address(this).balance - msg.value;\\n        uint256 tokenReserve = token.balanceOf(address(this));\\n        tokenOutput = price(msg.value, ethReserve, tokenReserve);\\n\\n        require(token.transfer(msg.sender, tokenOutput), \\\"ethToToken(): reverted swap.\\\");\\n        emit Swap(msg.sender, address(0), msg.value, address(token), tokenOutput);\\n        return tokenOutput;\\n    }\\n\\n    /**\\n     * @notice sends $CORN tokens to DEX in exchange for Ether\\n     */\\n    function tokenToEth(uint256 tokenInput) internal returns (uint256 ethOutput) {\\n        require(tokenInput > 0, \\\"cannot swap 0 tokens\\\");\\n        require(token.balanceOf(msg.sender) >= tokenInput, \\\"insufficient token balance\\\");\\n        require(token.allowance(msg.sender, address(this)) >= tokenInput, \\\"insufficient allowance\\\");\\n        uint256 tokenReserve = token.balanceOf(address(this));\\n        ethOutput = price(tokenInput, tokenReserve, address(this).balance);\\n        require(token.transferFrom(msg.sender, address(this), tokenInput), \\\"tokenToEth(): reverted swap.\\\");\\n        (bool sent, ) = msg.sender.call{ value: ethOutput }(\\\"\\\");\\n        require(sent, \\\"tokenToEth: revert in transferring eth to you!\\\");\\n        emit Swap(msg.sender, address(token), tokenInput, address(0), ethOutput);\\n        return ethOutput;\\n    }\\n\\n    /**\\n     * @notice allows users to swap ETH for $CORN or $CORN for ETH with a single method\\n     */\\n    function swap(uint256 inputAmount) public payable returns (uint256 outputAmount) {\\n        if (msg.value > 0 && inputAmount == msg.value) {\\n            outputAmount = ethToToken();\\n        } else {\\n            outputAmount = tokenToEth(inputAmount);\\n        }\\n        emit PriceUpdated(currentPrice());\\n    }\\n\\n    /**\\n     * @notice allows deposits of $CORN and $ETH to liquidity pool\\n     * NOTE: parameter is the msg.value sent with this function call. That amount is used to determine the amount of $CORN needed as well and taken from the depositor.\\n     * NOTE: user has to make sure to give DEX approval to spend their tokens on their behalf by calling approve function prior to this function call.\\n     * NOTE: Equal parts of both assets will be removed from the user's wallet with respect to the price outlined by the AMM.\\n     */\\n    function deposit() public payable returns (uint256 tokensDeposited) {\\n        require(msg.value > 0, \\\"Must send value when depositing\\\");\\n        uint256 ethReserve = address(this).balance - msg.value;\\n        uint256 tokenReserve = token.balanceOf(address(this));\\n        uint256 tokenDeposit;\\n\\n        tokenDeposit = ((msg.value * tokenReserve) / ethReserve) + 1;\\n\\n        require(token.balanceOf(msg.sender) >= tokenDeposit, \\\"insufficient token balance\\\");\\n        require(token.allowance(msg.sender, address(this)) >= tokenDeposit, \\\"insufficient allowance\\\");\\n\\n        uint256 liquidityMinted = (msg.value * totalLiquidity) / ethReserve;\\n        liquidity[msg.sender] += liquidityMinted;\\n        totalLiquidity += liquidityMinted;\\n\\n        require(token.transferFrom(msg.sender, address(this), tokenDeposit));\\n        emit LiquidityProvided(msg.sender, liquidityMinted, msg.value, tokenDeposit);\\n        return tokenDeposit;\\n    }\\n\\n    /**\\n     * @notice allows withdrawal of $CORN and $ETH from liquidity pool\\n     * NOTE: with this current code, the msg caller could end up getting very little back if the liquidity is super low in the pool. I guess they could see that with the UI.\\n     */\\n    function withdraw(uint256 amount) public returns (uint256 ethAmount, uint256 tokenAmount) {\\n        require(liquidity[msg.sender] >= amount, \\\"withdraw: sender does not have enough liquidity to withdraw.\\\");\\n        uint256 ethReserve = address(this).balance;\\n        uint256 tokenReserve = token.balanceOf(address(this));\\n        uint256 ethWithdrawn;\\n\\n        ethWithdrawn = (amount * ethReserve) / totalLiquidity;\\n\\n        tokenAmount = (amount * tokenReserve) / totalLiquidity;\\n        liquidity[msg.sender] -= amount;\\n        totalLiquidity -= amount;\\n        (bool sent, ) = payable(msg.sender).call{ value: ethWithdrawn }(\\\"\\\");\\n        require(sent, \\\"withdraw(): revert in transferring eth to you!\\\");\\n        require(token.transfer(msg.sender, tokenAmount));\\n        emit LiquidityRemoved(msg.sender, amount, tokenAmount, ethWithdrawn);\\n        return (ethWithdrawn, tokenAmount);\\n    }\\n}\\n\",\"keccak256\":\"0x5a3ac036d8480dc68a834ce1e97ba6369bb6bf810afa3070c2b0e2347ab6f2c2\",\"license\":\"MIT\"},\"project/contracts/Lending.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\npragma solidity ^0.8.20;\\n\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"./Corn.sol\\\";\\nimport \\\"./CornDEX.sol\\\";\\n\\ninterface IFlashLoanRecipient {\\n    function executeOperation(uint256 amount, address initiator, address extraParam) external returns (bool);\\n}\\n\\ncontract Lending is Ownable {\\n    uint256 private constant COLLATERAL_RATIO = 120; // 120% collateralization required\\n    uint256 private constant LIQUIDATOR_REWARD = 10; // 10% reward for liquidators\\n\\n    Corn private i_corn;\\n    CornDEX private i_cornDEX;\\n\\n    mapping(address => uint256) public s_userCollateral; // Users collateral balance\\n    mapping(address => uint256) public s_userBorrowed; // Users borrowed corn balance\\n\\n    event CollateralAdded(address indexed user, uint256 indexed amount, uint256 price);\\n    event CollateralWithdrawn(address indexed user, uint256 indexed amount, uint256 price);\\n    event AssetBorrowed(address indexed user, uint256 indexed amount, uint256 price);\\n    event AssetRepaid(address indexed user, uint256 indexed amount, uint256 price);\\n    event Liquidation(\\n        address indexed user,\\n        address indexed liquidator,\\n        uint256 amountForLiquidator,\\n        uint256 liquidatedUserDebt,\\n        uint256 price\\n    );\\n\\n    error Lending__InvalidAmount();\\n    error Lending__TransferFailed();\\n    error Lending__UnsafePositionRatio();\\n    error Lending__BorrowingFailed();\\n    error Lending__RepayingFailed();\\n    error Lending__PositionSafe();\\n    error Lending__NotLiquidatable();\\n    error Lending__InsufficientLiquidatorCorn();\\n\\n    constructor(address _cornDEX, address _corn) Ownable(msg.sender) {\\n        i_cornDEX = CornDEX(_cornDEX);\\n        i_corn = Corn(_corn);\\n        i_corn.approve(address(this), type(uint256).max);\\n    }\\n\\n    /**\\n     * @notice Allows users to add collateral to their account\\n     */\\n    function addCollateral() public payable {\\n        if (msg.value == 0) {\\n            revert Lending__InvalidAmount();\\n        }\\n        s_userCollateral[msg.sender] += msg.value;\\n        emit CollateralAdded(msg.sender, msg.value, i_cornDEX.currentPrice());\\n    }\\n\\n    /**\\n     * @notice Allows users to withdraw collateral as long as it doesnt make them liquidatable\\n     * @param amount The amount of collateral to withdraw\\n     */\\n    function withdrawCollateral(uint256 amount) public {\\n        if (amount == 0 || s_userCollateral[msg.sender] < amount) {\\n            revert Lending__InvalidAmount();\\n        }\\n\\n        s_userCollateral[msg.sender] -= amount;\\n\\n        if (s_userBorrowed[msg.sender] > 0) {\\n            _validatePosition(msg.sender);\\n        }\\n\\n        (bool success, ) = payable(msg.sender).call{value: amount}(\\\"\\\");\\n        if (!success) {\\n            revert Lending__TransferFailed();\\n        }\\n\\n        emit CollateralWithdrawn(msg.sender, amount, i_cornDEX.currentPrice());\\n    }\\n\\n    /**\\n     * @notice Calculates the total collateral value for a user based on their collateral balance\\n     * @param user The address of the user to calculate the collateral value for\\n     * @return uint256 The collateral value\\n     */\\n    function calculateCollateralValue(address user) public view returns (uint256) {\\n        uint256 collateralAmount = s_userCollateral[user];\\n        return (collateralAmount * i_cornDEX.currentPrice()) / 1e18;\\n    }\\n\\n    /**\\n     * @notice Calculates the position ratio for a user to ensure they are within safe limits\\n     * @param user The address of the user to calculate the position ratio for\\n     * @return uint256 The position ratio\\n     */\\n    function _calculatePositionRatio(address user) internal view returns (uint256) {\\n        uint256 borrowedAmount = s_userBorrowed[user];\\n        uint256 collateralValue = calculateCollateralValue(user);\\n        if (borrowedAmount == 0) return type(uint256).max;\\n        return (collateralValue * 1e18) / borrowedAmount;\\n    }\\n\\n    /**\\n     * @notice Checks if a user's position can be liquidated\\n     * @param user The address of the user to check\\n     * @return bool True if the position is liquidatable, false otherwise\\n     */\\n    function isLiquidatable(address user) public view returns (bool) {\\n        uint256 positionRatio = _calculatePositionRatio(user);\\n        return (positionRatio * 100) < COLLATERAL_RATIO * 1e18;\\n    }\\n\\n    /**\\n     * @notice Internal view method that reverts if a user's position is unsafe\\n     * @param user The address of the user to validate\\n     */\\n    function _validatePosition(address user) internal view {\\n        if (isLiquidatable(user)) {\\n            revert Lending__UnsafePositionRatio();\\n        }\\n    }\\n\\n    /**\\n     * @notice Allows users to borrow corn based on their collateral\\n     * @param borrowAmount The amount of corn to borrow\\n     */\\n    function borrowCorn(uint256 borrowAmount) public {\\n        if (borrowAmount == 0) {\\n            revert Lending__InvalidAmount();\\n        }\\n        s_userBorrowed[msg.sender] += borrowAmount;\\n        _validatePosition(msg.sender);\\n\\n        bool success = i_corn.transferFrom(address(this), msg.sender, borrowAmount);\\n        if (!success) {\\n            revert Lending__BorrowingFailed();\\n        }\\n\\n        emit AssetBorrowed(msg.sender, borrowAmount, i_cornDEX.currentPrice());\\n    }\\n\\n    /**\\n     * @notice Allows users to repay corn and reduce their debt\\n     * @param repayAmount The amount of corn to repay\\n     */\\n    function repayCorn(uint256 repayAmount) public {\\n        if (repayAmount == 0 || repayAmount > s_userBorrowed[msg.sender]) {\\n            revert Lending__InvalidAmount();\\n        }\\n        s_userBorrowed[msg.sender] -= repayAmount;\\n\\n        bool success = i_corn.transferFrom(msg.sender, address(this), repayAmount);\\n        if (!success) {\\n            revert Lending__RepayingFailed();\\n        }\\n\\n        emit AssetRepaid(msg.sender, repayAmount, i_cornDEX.currentPrice());\\n    }\\n\\n    /**\\n     * @notice Allows liquidators to liquidate unsafe positions\\n     * @param user The address of the user to liquidate\\n     */\\n    function liquidate(address user) public {\\n        if (!isLiquidatable(user)) {\\n            revert Lending__NotLiquidatable();\\n        }\\n\\n        uint256 userDebt = s_userBorrowed[user];\\n        if (i_corn.balanceOf(msg.sender) < userDebt) {\\n            revert Lending__InsufficientLiquidatorCorn();\\n        }\\n\\n        uint256 userCollateral = s_userCollateral[user];\\n        uint256 collateralValue = calculateCollateralValue(user);\\n\\n        bool success = i_corn.transferFrom(msg.sender, address(this), userDebt);\\n        if (!success) {\\n            revert Lending__RepayingFailed();\\n        }\\n\\n        s_userBorrowed[user] = 0;\\n\\n        uint256 collateralPurchased = (userDebt * userCollateral) / collateralValue;\\n        uint256 liquidatorReward = (collateralPurchased * LIQUIDATOR_REWARD) / 100;\\n        uint256 amountForLiquidator = collateralPurchased + liquidatorReward;\\n        amountForLiquidator = amountForLiquidator > userCollateral ? userCollateral : amountForLiquidator;\\n\\n        s_userCollateral[user] = userCollateral - amountForLiquidator;\\n\\n        (bool sent, ) = payable(msg.sender).call{value: amountForLiquidator}(\\\"\\\");\\n        if (!sent) {\\n            revert Lending__TransferFailed();\\n        }\\n\\n        emit Liquidation(user, msg.sender, amountForLiquidator, userDebt, i_cornDEX.currentPrice());\\n    }\\n\\n    function flashLoan(IFlashLoanRecipient _recipient, uint256 _amount, address _extraParam) public {\\n        i_corn.transfer(address(_recipient), _amount);\\n        bool ok = _recipient.executeOperation(_amount, msg.sender, _extraParam);\\n        require(ok, \\\"Operation was unsuccessful\\\");\\n        i_corn.transferFrom(address(_recipient), address(this), _amount);\\n    }\\n\\n    function getMaxBorrowAmount(uint256 ethCollateralAmount) public view returns (uint256) {\\n        if (ethCollateralAmount == 0) return 0;\\n        uint256 collateralValue = (ethCollateralAmount * i_cornDEX.currentPrice()) / 1e18;\\n        return (collateralValue * 100) / COLLATERAL_RATIO;\\n    }\\n\\n    function getMaxWithdrawableCollateral(address user) public view returns (uint256) {\\n        uint256 borrowedAmount = s_userBorrowed[user];\\n        uint256 userCollateral = s_userCollateral[user];\\n        if (borrowedAmount == 0) return userCollateral;\\n\\n        uint256 maxBorrowedAmount = getMaxBorrowAmount(userCollateral);\\n        if (borrowedAmount == maxBorrowedAmount) return 0;\\n\\n        uint256 potentialBorrowingAmount = maxBorrowedAmount - borrowedAmount;\\n        uint256 ethValueOfPotentialBorrowingAmount = (potentialBorrowingAmount * 1e18) / i_cornDEX.currentPrice();\\n\\n        return (ethValueOfPotentialBorrowingAmount * COLLATERAL_RATIO) / 100;\\n    }\\n}\\n\",\"keccak256\":\"0x9ba7d9fb1f314aa45eaf1ecd4ce5e5722015591dac0ee34e5acb030a2bdd1b07\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "project/contracts/Lending.sol:Lending",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 1680,
+        "contract": "project/contracts/Lending.sol:Lending",
+        "label": "i_corn",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(Corn)1000"
+      },
+      {
+        "astId": 1683,
+        "contract": "project/contracts/Lending.sol:Lending",
+        "label": "i_cornDEX",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_contract(CornDEX)1652"
+      },
+      {
+        "astId": 1687,
+        "contract": "project/contracts/Lending.sol:Lending",
+        "label": "s_userCollateral",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_address,t_uint256)"
+      },
+      {
+        "astId": 1691,
+        "contract": "project/contracts/Lending.sol:Lending",
+        "label": "s_userBorrowed",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_contract(Corn)1000": {
+        "encoding": "inplace",
+        "label": "contract Corn",
+        "numberOfBytes": "20"
+      },
+      "t_contract(CornDEX)1652": {
+        "encoding": "inplace",
+        "label": "contract CornDEX",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "addCollateral()": {
+        "notice": "Allows users to add collateral to their account"
+      },
+      "borrowCorn(uint256)": {
+        "notice": "Allows users to borrow corn based on their collateral"
+      },
+      "calculateCollateralValue(address)": {
+        "notice": "Calculates the total collateral value for a user based on their collateral balance"
+      },
+      "isLiquidatable(address)": {
+        "notice": "Checks if a user's position can be liquidated"
+      },
+      "liquidate(address)": {
+        "notice": "Allows liquidators to liquidate unsafe positions"
+      },
+      "repayCorn(uint256)": {
+        "notice": "Allows users to repay corn and reduce their debt"
+      },
+      "withdrawCollateral(uint256)": {
+        "notice": "Allows users to withdraw collateral as long as it doesnt make them liquidatable"
+      }
+    },
+    "version": 1
+  },
+  "argsData": "0x00000000000000000000000006d8829b0cb8d555664e9b81c0646a1e38b34c3300000000000000000000000044cf78dc64bef0e21f861a07f28551a52299f9c1",
+  "transaction": {
+    "hash": "0xb05bfe47880b36295ed6922d8c95774c93a7c76182b3f88066c029642227af0b",
+    "nonce": "0x13",
+    "origin": "0xccef720b09c61a7229580e8c70cc8f099f271d24"
+  },
+  "receipt": {
+    "blockHash": "0xd692a826e003938827b3a11da325c1ca8c3ee52b218f39765589d2955a46b76b",
+    "blockNumber": "0xb8aa78",
+    "transactionIndex": "0x0"
+  }
+}
